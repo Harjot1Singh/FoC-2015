@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Envolve Landing Page</title>
+    <!--Bootstrap-->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
+    <script src="FetchFBData.js"></script>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <!-- USE OFFSET -->
+            <div class="col-xs-10 col-xs-offset-1">
+                <h1 class="titlemain">Envolve</h1>
+                <div class="primarydescription">
+                    <p class="primarydescription">Envolve is a new service to find friends to do activities with. This app will use Facebook to authenticate people. Then people enter the activities they wish to do and they will be matched up with someone else with the same interests.</h5>
+                </div>
+            
+            <div class="col-xs-10 col-xs-offset-1">
+                <div class="btnwrapper">
+                    <button class="loginbtn">
+                        <div class="fb-login-button" data-size="small" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
+                        </div>
+                        Login to Facebook
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>

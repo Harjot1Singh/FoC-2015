@@ -1,0 +1,34 @@
+/* Custom CSS*/
+.titlemain{
+    text-align: center;
+}
+
+.primarydescription{
+    text-align: center;
+}
+
+.btnwrapper {
+    text-align: center;
+}
+
+.loginbtn {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  color: #ffffff;
+  font-size: 20px;
+  background: #3b5998;
+  padding: 10px 20px 10px 40px;
+  text-decoration: none;
+}
+
+.loginbtn:hover {
+  background: #8b9dc3;
+  text-decoration: none;
+}
+
+
+
+/*
+ *    Jake's styles
+ */
