@@ -6,11 +6,98 @@
 
 <h3> Backend </h3>
 
-<h4> Node.js </h4>
+<h4> API </h4>
 
-FB --> Get data 
+POST /api/user to create/"authenticate" user
+Pass json object containing: firstName, lastName, gender, dob, number, email, pictureURL, serviceID, serviceName
+Returns {"userID" : "14"}. Store this to make a match request later on or access match page.
 
-Data
+POST /api/request to create a match request
+Pass JSON object containing: userID (received), genderPreference, gpsX (of the user), gpsY, publicX (of the venue, or if no venue, the user), publicY, publicName (if venue then venue/area name etc), endDate, activityName
+Returns {"requestID" : "2114"} on success.
+
+POST /api/matches to receive a list of all matched details
+Pass JSON object containing: userID (Received before).
+Returns
+{
+	"matches" : {[
+					{ 
+						"activityName" : "gaming",
+						"requestID" : "324243234",
+						"genderPreference" "both", //"male" or "female" or "both
+						"publicName" : "Ealing",
+						"distanceFromVenue" : "2",
+						"endDate" : "12/12/2012",
+						"users" : [{"firstName" : "Bob",
+									"lastName" : "Vagan",
+									"gender" : "male",
+									"dob" : "25/04/1993",
+									"number" : "0221232323",
+									"email" : "awhwda@Wda.com"
+									"serviceID" : "1212313",
+									"serviceName" : "Facebook",
+									"pictureURL" : "http://images.fb.com/wd.jpg",
+									"confirmed" : "true",
+									"distanceFromYou" : "4", //miles
+									"distanceFromVenue" "1"
+									},
+									{"firstName" : "ALice",
+									"lastName" : "Joan",
+									"gender" : "female",
+									"dob" : "22/12/1993",
+									"number" : "0221232323",
+									"email" : "awhwda@Wda.com"
+									"serviceID" : "1666313",
+									"serviceName" : "Facebook",
+									"pictureURL" : "http://images.fb.com/w123.jpg",
+									"confirmed" : "false",
+									"distanceFromYou" : "2", //miles
+									"distanceFromVenue" "3"
+									}
+						]
+				},
+				{ 
+						"activityName" : "gardening",
+						"endDate" : "12/02/1234",
+						"requestID" : "12321",
+						"genderPreference" "male", //"male" or "female" or "both
+						"publicName" : "Northwood",
+						"distanceFromVenue" : "2",
+						"users" : [{"firstName" : "Bob",
+									"lastName" : "Vagan",
+									"gender" : "male",
+									"dob" : "25/04/1993",
+									"number" : "0221232323",
+									"email" : "awhwda@Wda.com"
+									"serviceID" : "1212313",
+									"serviceName" : "Facebook",
+									"pictureURL" : "http://images.fb.com/wd.jpg",
+									"confirmed" : "true",
+									"distanceFromYou" : "4", //miles
+									"distanceFromVenue" "1"
+									},
+									{"firstName" : "Bond",
+									"lastName" : "Joan",
+									"gender" : "male",
+									"dob" : "22/12/1993",
+									"number" : "0221232323",
+									"email" : "awhwda@Wda.com"
+									"serviceID" : "1666313",
+									"serviceName" : "Facebook",
+									"pictureURL" : "http://images.fb.com/w123.jpg",
+									"confirmed" : "false",
+									"distanceFromYou" : "2", //miles
+									"distanceFromVenue" "3"
+									}
+						]
+				}
+			]
+	}
+}	
+
+POST /api/delete to delete
+Pass JSON object {"requestID" : "21321" }
+
 
 <h4> Database </h4>
 

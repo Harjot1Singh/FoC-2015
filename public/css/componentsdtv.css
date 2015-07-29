@@ -28,7 +28,7 @@ html {
  .listing {
      background-color: #ddd;
      border-radius: 10px;
-     padding: 20px;
+     /*padding: 20px;*/
      margin: 20px ;
  }
  
