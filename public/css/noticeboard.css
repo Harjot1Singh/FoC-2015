@@ -1,0 +1,49 @@
+/*Fonts*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
+/* Custom CSS*/
+
+body, html {
+  margin: 0;
+  overflow: hidden;
+  height:100%;
+  font-family: 'Open Sans' !important;
+}
+
+#left {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  left: 0;
+  width: 75%;
+  overflow-y: scroll;
+  background-color: #FC6E51;
+  text-align: center;
+  height:100%;
+}
+
+#right {
+  position: absolute;
+  top: 50px;
+  bottom: 0;
+  right: 0;
+  overflow-y: scroll;
+  width: 25%;
+  height: 100%;
+  background-color: #4FC1E9;
+  text-align: center;
+}
+
+@media (min-width: 768px){
+  #left {
+ 
+  }
+  
+  #right {
+     
+  }
+}
+
+.horizontalwrapper {
+  overflow-x: scroll;
+}

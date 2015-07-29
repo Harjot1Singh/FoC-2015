@@ -1,13 +1,36 @@
+/*Fonts*/
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700);
+
 /* Custom CSS*/
-.titlemain{
+
+html {
+    height: 100%;
+    /*background: url("http://www.duraltennis.com/Social-Tennis-Ten-Australia_5OCT-13-33597-1024-700x450.jpg") no-repeat center center fixed; */
+    background: url("/img/envolve-bg.jpg") no-repeat center center fixed; 
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+    font-family: 'Open Sans', sans-serif !important;
+    font-weight: 300;
+}
+
+body {
+    /*height: 100%;*/
+    font-family: 'Open Sans', sans-serif !important;
+}
+
+.description {
+    width: 80%;
+    margin: 0 auto;
     text-align: center;
 }
 
-.primarydescription{
-    text-align: center;
+.relative {
+    position: relative;
 }
 
-.btnwrapper {
+.center {
     text-align: center;
 }
 
@@ -15,20 +38,155 @@
   -webkit-border-radius: 28;
   -moz-border-radius: 28;
   border-radius: 28px;
-  color: #ffffff;
+  border: none;
+  color: #fff;
   font-size: 20px;
   background: #3b5998;
-  padding: 10px 20px 10px 40px;
+  padding: 10px 20px 10px 60px;
+  margin: 40px 0;
   text-decoration: none;
+  outline: none;
+  
+  /*Facebook logo*/
+  background: #3b5998 url("/img/fbSmallLogo.png") 18px 10px no-repeat;
+  background-size: 30px;
 }
 
 .loginbtn:hover {
-  background: #8b9dc3;
+  background-color: #8b9dc3;
   text-decoration: none;
+  outline: none;
 }
-
-
-
+.loginbtn:active {
+    background-color: #7975B6;
+}
 /*
  *    Jake's styles
  */
+ 
+ .optionRow {
+     margin: 20px 0;
+ }
+
+.firstrowlabel {
+    width: 20%;
+    text-align: right;
+}
+.inlineblock {
+    display: inline-block;
+}
+.firstrowfield {
+    width: 70%;
+    margin-left: 10px;
+}
+.wanttofield {
+    border: 6px solid #c9c6c6;
+    width: 100%; 
+    height: 55px;
+    -webkit-border-radius: 12px;
+    -moz-border-radius: 12px;
+    border-radius: 12px;
+}
+.secondrowlabel {
+    width: 40%;
+    text-align: right;
+    margin-right: 10px;
+}
+.secondrowoption {
+    
+}
+
+.labelText {
+    color: #363636;
+    font-size: 2em;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 300;
+}
+
+.select {
+   background: -webkit-linear-gradient(#efefef, #d1d1d1); /* For Safari 5.1 to 6.0 */
+   background: -o-linear-gradient(#efefef, #d1d1d1); /* For Opera 11.1 to 12.0 */
+   background: -moz-linear-gradient(#efefef, #d1d1d1); /* For Firefox 3.6 to 15 */
+   background: linear-gradient(#efefef, #d1d1d1); /* Standard syntax */
+  
+   width: 268px;
+   padding: 5px;
+   font-size: 16px;
+   line-height: 1;
+   height: 34px;
+}
+
+.calBtn {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  border: none;
+  color: #fff;
+  font-size: 18px;
+  background: #3b5998;
+  padding: 10px 20px 10px 60px;
+  margin: 10px 0;
+  text-decoration: none;
+  outline: none;
+  
+  /*Facebook logo*/
+  background: #38B443 url("/img/calendar.png") 18px 8px no-repeat;
+  background-size: 30px;
+}
+
+.calBtn:hover {
+  background-color: #63C167;
+  text-decoration: none;
+  outline: none;
+}
+.calBtn:active {
+    background-color: #29C130;
+}
+
+.orsee {
+    margin: 10px 0 30px 0;
+}
+.orsee a {
+    font-weight: 400;
+    color: black;
+    text-decoration: underline;
+}
+
+@-webkit-keyframes changeBorderRadius {
+    from {border-radius: 28px;}
+    to {border-radius: 6px;}
+}
+
+/* Standard syntax */
+@keyframes changeBorderRadius {
+    from {border-radius: 28px;}
+    to {border-radius: 6px;}
+}
+
+/*
+ *    Dylan's styles
+ */
+ 
+ .transparentOverlay {
+     background: rgba(255,255,255,0.85);
+     position: absolute;
+     top: 50%;
+     transform: translateY(50%);
+ }
+ 
+ .choices {
+     
+ }
+ 
+ .row-fluid{
+     white-space: nowrap;
+ }
+ 
+ .row-fluid .col-lg-3{
+     display: inline-block;
+ }
+ 
+ .listing {
+     background-color: #ccc;
+     border-radius: 5px;
+ }

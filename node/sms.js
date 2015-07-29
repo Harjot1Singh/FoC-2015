@@ -1,60 +1,22 @@
-var pg = require("pg");
+ var clockwork = require('clockwork')({
+     key: '58ef3eed33495309d5a7ce1318a7f4c005be6c63'
+ });
 
-//Wrapper for all database functionality
-var DB = function() {
-    //Environment specific constructor
-    if (process.env.development == "true") {
-        //Database in C9 environment - remember to set development = true in environment
-        this.connString = "postgres://postgres:postgres@localhost/biscuit";
-    }
-    else {
-        //TBC username + password + ip
-        this.connString = "postgres://postgres:postgres@randomhost/biscuit";
-    }
-
-};
-
-
-//Checks if tables exist, if not, creates them
-DB.prototype.setupDB = function() {
-    var client = new pg.Client(this.connString);
-    client.connect(function(err) {
-        if (err) {
-            return console.error('Could not connect to postgres', err);
-        }
-        //Create tblUsers
-        client.query("CREATE TABLE IF NOT EXISTS tblUsers  ( \
-                    id SERIAL, \
-                    gender INT, \
-                    firstName VARCHAR(50), \
-                    lastName VARCHAR(50), \
-                    dob DATE, \
-                    number VARCHAR(20), \
-                    email VARCHAR(100), \
-                    serviceID VARCHAR(50), \
-                    serviceName VARCHAR(20) \
-                    );", function(err, result) {
-            if (err) {
-                return console.error('Error:', err);
-            }
-            console.info('tblUsers processed');
-        });
-        //Create tblQueue
-        client.query("CREATE TABLE IF NOT EXISTS tblQueue ( \
-                    id SERIAL, \
-                    userID INT, \
-                    gender VARCHAR(10), \
-                    locationX FLOAT, \
-                    locationY FLOAT, \
-                    endDate DATE \
-                    );", function(err, result) {
-            if (err) {
-                return console.error('Error:', err);
-            }
-            console.info('tblQueue processed');
-        });
-        console.info('DB initialised successfully');
-    });
-};
-
-module.exports = DB;
+ //i.e use SMS.send to send it in other module
+ exports.send = function(number, message) {
+     /*
+         Daniel's Key    : 58ef3eed33495309d5a7ce1318a7f4c005be6c63
+         Jake's Key      : 2cf1417b65d94cd9ebc7d4558fd1cdea41bb3dd0
+     */
+     clockwork.sendSms([{
+             To: number,
+             Content: message,
+             From: "Envolve"
+         }],
+         function(error, resp) {
+             if (error) console.log("Error:", error);
+             else console.log("Sent'", message, "' to", number);
+         }
+     );
+ };
+ 

@@ -1,0 +1,128 @@
+/* Custom CSS*/
+
+html {
+    height: 100%;
+}
+
+.body {
+    height: 100%;
+}
+
+.center {
+    text-align: center;
+}
+
+.loginbtn {
+  -webkit-border-radius: 28;
+  -moz-border-radius: 28;
+  border-radius: 28px;
+  border: none;
+  color: #fff;
+  font-size: 20px;
+  background: #3b5998;
+  padding: 10px 20px 10px 40px;
+  text-decoration: none;
+  outline: none;
+}
+
+.loginbtn:hover {
+  background: #8b9dc3;
+  text-decoration: none;
+  outline: none;
+}
+.loginbtn:active {
+    background: #7975B6;
+}
+
+
+
+/*
+ *    Jake's styles
+ */
+ 
+/* Facebook Btn */
+
+.fbLoginBtnWrap {
+    
+}
+
+
+
+
+/*
+ *    Dylan's styles
+ */
+ 
+ .transparentOverlay {
+     background: rgba(255,255,255,0.5);
+ }
+ 
+ .choices {
+     
+ }
+ 
+.row {
+    padding-top: 100px;
+}
+
+ .listing {
+     background-color: #ddd;
+     border-radius: 10px;
+     padding: 20px;
+ }
+ 
+ .listing > span {
+     display: inline-block;
+ }
+ 
+ .listOwner {
+     border-radius: 50px;
+     display: inline-block;
+     margin-top: -30px;
+     margin-right: 10px;
+ }
+ 
+ .listing .activity {
+     color: #222;
+     font-size: 24px;
+     line-height: 1;
+     margin: 0;
+ }
+ 
+ .whatAndWhen {
+     display: inline-block;
+     color: #666;
+ }
+ 
+ .ageIndicator {
+     display: inline-block;
+     float: right;
+ }
+ 
+ .whoElse {
+     margin: 10px 0px 0px 25px;
+ }
+ 
+ .otherParticipant {
+     border-radius: 30px;
+     border: 3px solid #ddd;
+     margin-right: -15px;
+     display: inline-block;
+ }
+ 
+ .lookingFor {
+     margin: 0px 0px 15px;
+     line-height: 1;
+     text-transform: uppercase;
+     font-size: 12px;
+     font-weight: bolder;
+     color: #666;
+     float: right;
+     clear: both;
+     display: inline-block;
+ }
+ 
+ .genderIcon {
+     width: 18px;
+     height: 18px;
+ }
