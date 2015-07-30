@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Envolve</title>
+    
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <script src="js/vendor/polarblau-suggest/src/jquery.suggest.js"></script>
+
+</head>
+    <body>
+      <p>THIS IS THE BEGINNING</p>
+      
+      <div class="container">
+        <input type="text" name="search" id="search" autocomplete="on"/>
+      </div>
+
+      <script>
+      
+      var haystack = ["ActionScript", "AppleScript", "Asp", "BASIC", "rekt"];
+
+      $(function(){
+        $('#container').suggest(haystack, {
+          suggestionColor   : '#cccccc',
+          moreIndicatorClass: 'suggest-more',
+          moreIndicatorText : '&hellip;'
+        });
+      });
+
+      </script>
+      <p>THIS IS THE END</p>
+    </body>
+</html>

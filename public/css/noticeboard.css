@@ -3,47 +3,212 @@
 
 /* Custom CSS*/
 
+.navbar-default {
+    background: none;
+    border: none;
+}
+
 body, html {
   margin: 0;
   overflow: hidden;
   height:100%;
   font-family: 'Open Sans' !important;
+  bottom: -50px;
+  
+  background: white url(/img/envolve-bg-blur.png) no-repeat;
+  background-size: contain;
 }
 
 #left {
   position: absolute;
-  top: 50px;
-  bottom: 0;
-  left: 0;
-  width: 75%;
+  width: 500px;
   overflow-y: scroll;
-  background-color: #FC6E51;
-  text-align: center;
-  height:100%;
+  height: 91vh;
+}
+.row1 {
+    transform: translateX(0px);
+}
+.row2 {
+    transform: translateX(500px);
+}
+.row3 {
+    transform: translateX(1000px);
+}
+.row4 {
+    transform: translateX(1500px);
+}
+.row5 {
+    transform: translateX(2000px);
+}
+
+.horizontalwrapper {
+    position: fixed;
+    bottom: 0;
+    height: 95vh;
+    width: 100vw;
+    overflow-x: scroll;
+    margin-right: 300px;
 }
 
 #right {
   position: absolute;
-  top: 50px;
+  top: 10%;
   bottom: 0;
-  right: 0;
-  overflow-y: scroll;
-  width: 25%;
-  height: 100%;
-  background-color: #4FC1E9;
+  left: 60%;
+  width: 60%;
+  height: 90%;
+  /*background-color: #4FC1E9;*/
   text-align: center;
 }
 
-@media (min-width: 768px){
-  #left {
- 
-  }
-  
-  #right {
-     
-  }
+/*From ComponentsDTV*/
+
+html {
+    height: 100%;
 }
 
-.horizontalwrapper {
-  overflow-x: scroll;
+.body {
+    height: 100%;
 }
+
+.center {
+    text-align: center;
+}
+ 
+.row {
+    /*padding-top: 100px;*/
+}
+
+ .listing {
+     background-color: #ddd;
+     border-radius: 10px;
+     padding: 20px;
+     margin: 20px ;
+ }
+ 
+ .listing > span {
+     display: inline-block;
+ }
+ 
+ .listOwner {
+     border-radius: 50px;
+     display: inline-block;
+     margin-top: -30px;
+     margin-right: 10px;
+ }
+ 
+ .listing .activity {
+     color: #222;
+     font-size: 24px;
+     line-height: 1;
+     margin: 0;
+ }
+ 
+ .whatAndWhen {
+     display: inline-block;
+     color: #666;
+ }
+ 
+ .ageIndicator {
+     display: inline-block;
+     float: right;
+ }
+ 
+ .whoElse {
+     margin: 10px 0px 0px 25px;
+ }
+ 
+ .otherParticipant {
+     border-radius: 30px;
+     border: 3px solid #ddd;
+     margin-right: -15px;
+     display: inline-block;
+ }
+ 
+ .lookingFor {
+     margin: 0px 0px 15px;
+     line-height: 1;
+     text-transform: uppercase;
+     font-size: 12px;
+     font-weight: bolder;
+     color: #666;
+     float: right;
+     display: inline-block;
+ }
+ 
+ .genderIcon {
+     width: 18px;
+     height: 18px;
+ }
+
+
+
+
+/*Jake's Styles*/
+
+.inlineblock {
+  display: inline-block;
+}
+
+h1 {
+  padding: 10px 0;
+  margin: 0;
+  color: white;
+}
+
+.topbar {
+  width: 100%;
+  height: 5vh;
+  margin: 0;
+  padding: 0;
+}
+
+.columnwrapper {
+  width: 100%;
+}
+
+/* Let's get this party started */
+::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+}
+ 
+/* Track */
+::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.0); 
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.4); 
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0); 
+}
+::-webkit-scrollbar-thumb:window-inactive {
+	background: rgba(255,0,0,0.4); 
+}
+
+
+
+
+
+
+
+
+
+/*@media (min-width: 768px){*/
+/*  #left {*/
+ 
+/*  }*/
+  
+/*  #right {*/
+     
+/*  }*/
+/*}*/
+
+/*.horizontalwrapper {*/
+/*  overflow-x: scroll;*/
+/*}*/

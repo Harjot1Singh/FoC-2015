@@ -16,7 +16,6 @@ html {
 }
 
 body {
-    /*height: 100%;*/
     font-family: 'Open Sans', sans-serif !important;
 }
 
@@ -41,7 +40,6 @@ body {
   border: none;
   color: #fff;
   font-size: 20px;
-  background: #3b5998;
   padding: 10px 20px 10px 60px;
   margin: 40px 0;
   text-decoration: none;
@@ -65,35 +63,29 @@ body {
  */
  
  .optionRow {
-     margin: 20px 0;
+     margin: 15px 0;
  }
 
 .firstrowlabel {
-    width: 20%;
+    width: 15%;
     text-align: right;
 }
 .inlineblock {
     display: inline-block;
 }
 .firstrowfield {
-    width: 70%;
+    width: 29%;
     margin-left: 10px;
 }
-.wanttofield {
-    border: 6px solid #c9c6c6;
+.typeahead {
+    border: 3px solid #c9c6c6;
     width: 100%; 
-    height: 55px;
-    -webkit-border-radius: 12px;
-    -moz-border-radius: 12px;
-    border-radius: 12px;
+    height: 44px;
 }
 .secondrowlabel {
-    width: 40%;
+    width: 44%;
     text-align: right;
     margin-right: 10px;
-}
-.secondrowoption {
-    
 }
 
 .labelText {
@@ -123,7 +115,6 @@ body {
   border: none;
   color: #fff;
   font-size: 18px;
-  background: #3b5998;
   padding: 10px 20px 10px 60px;
   margin: 10px 0;
   text-decoration: none;
@@ -144,13 +135,54 @@ body {
 }
 
 .orsee {
-    margin: 10px 0 30px 0;
+    margin: 10px 0 10px 0;
 }
 .orsee a {
     font-weight: 400;
     color: black;
     text-decoration: underline;
 }
+
+.iwanttolabel {
+    display: inline-block;
+}
+.activityfield {
+    display: inline-block;
+}
+.notifyme {
+    display: inline-block;
+    width:23%
+}
+.notifyme p {
+    font-size:1.6em
+}
+.phonenofield {
+    display: inline-block;
+    width: 24%;
+}
+.atlabel {
+    width: 20%;
+}
+
+.locationbtn {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  border: none;
+  font-size: 18px;
+  margin: 0;
+  padding: 12px;
+  text-decoration: none;
+  outline: none;
+  width: 45px;
+  height: 45px;
+  background: #15AD8D url("/img/location.png") 50% 50% no-repeat;
+  background-size: 60%;
+}
+
+/*
+ *    Animations
+ */
 
 @-webkit-keyframes changeBorderRadius {
     from {border-radius: 28px;}
@@ -163,6 +195,13 @@ body {
     to {border-radius: 6px;}
 }
 
+.row div {
+    -webkit-transition: width 0.3s ease, margin 0.3s ease;
+    -moz-transition: width 0.3s ease, margin 0.3s ease;
+    -o-transition: width 0.3s ease, margin 0.3s ease;
+    transition: width 0.3s ease, margin 0.3s ease;
+}
+
 /*
  *    Dylan's styles
  */
@@ -170,8 +209,9 @@ body {
  .transparentOverlay {
      background: rgba(255,255,255,0.85);
      position: absolute;
-     top: 50%;
-     transform: translateY(50%);
+     border-radius: 5px;
+     padding: 20px 50px;
+     margin-top: 50px;
  }
  
  .choices {
@@ -190,3 +230,182 @@ body {
      background-color: #ccc;
      border-radius: 5px;
  }
+ 
+/*
+ *    Chris's style 
+ */
+ 
+.the_basics {
+  margin: 0 20px 5px 20px;
+  padding: 3px 0;
+  border-bottom: 1px solid #ccc;
+  background-color: #ffffff;
+}
+
+    #search {
+      padding: 5px;
+      font-size: 1.2em;
+      letter-spacing: 0;
+      font-weight: normal;
+      font-family: Helvetica, Arial, sans-serif !important;
+      position: relative;
+      color: #333;
+      width: 200px;
+      background: #fff;
+      z-index: 10;
+    }
+
+/*
+ *    Responsive styles
+ */
+ 
+ #formCol {
+     display: inline-block;
+ }
+ #mapCol {
+     height: 100vh;
+     margin: 0;
+     background-color: red;
+     display: inline-block;
+ }
+ 
+ .formColFull {
+     width: 100%;
+ }
+ .formColHalf {
+     width: 49%;
+ }
+ .formColNone {
+     width: 0%;
+ }
+ .mapColFull {
+     width: 100%;
+ }
+ .mapColHalf {
+     width: 50%;
+     left: 50%;
+ }
+ .mapColNone {
+     width: 0%;
+     left: 100%;
+ }
+ 
+@media all and (min-width: 0px) and (max-width: 1250px) {
+    .labelText {
+        font-size: 1.5em;
+    }
+    .notifyme p {
+        font-size: 1.2em;
+    }
+    .secondrowlabel {
+        width: 24%;
+    }
+    
+}
+
+@media all and (min-width: 910px) and (max-width: 975px) {
+    .labelText {
+        font-size: 1.3em;
+    }
+    .notifyme p {
+        font-size: 1.1em;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 910px) {
+    .labelText {
+        font-size: 1.3em;
+    }
+    .notifyme p {
+        font-size: 1.1em;
+    }
+    .activityfield {
+        width: 70%;
+        margin-bottom: 20px;
+    }
+    .firstrowlabel {
+        width: 25%;
+    }
+    .phonenofield {
+        width: 70%;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 847px) {
+    .notifyme p {
+        font-size: 1.0em;
+    }
+    .secondrowlabel {
+        width: 18%;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 768px) {
+    .transparentOverlay {
+        border-radius: 0;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 488px) {
+    .description {
+        width: 100%;
+        font-size: 1em;
+    }
+    
+    .transparentOverlay {
+        margin-top: 0;
+    }
+    
+    .labelText {
+        text-align: left;
+        font-size: 1.9em;
+    }
+    .notifyme {
+        font-size: 1.9em;
+    }
+    
+    .firstrowlabel {
+        width: 100%;
+    }
+    .activityfield {
+        width: 100%;
+    }
+    .phonenofield {
+        width: 100%;
+    }
+    
+    .secondrowlabel {
+        width: 100%;
+    }
+    .secondrowlabel p {
+        text-align: left;
+    }
+    
+    .calBtn {
+        width: 75vw;
+        margin: 0 auto;
+    }
+    .loginbtn {
+        width: 75vw;
+        margin-left: auto;
+        margin-right: auto;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 351px) {
+    .loginbtn {
+        font-size: 13px;
+        padding-left: 20px;
+        background: #3b5998 url("/img/fbSmallLogo.png") 24px 8px no-repeat;
+        background-size: 22px;
+    }
+}
+
+@media all and (min-width: 0px) and (max-width: 305px) {
+    .calBtn {
+        font-size: 15px;
+        padding-left: 20px;
+        background: #38B443 url("/img/calendar.png") 24px 8px no-repeat;
+        background-size: 22px;
+    }
+}

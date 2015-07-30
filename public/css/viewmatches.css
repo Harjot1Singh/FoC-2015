@@ -3,34 +3,43 @@
 
 /* Custom CSS*/
 
+.navbar-default {
+    background: none;
+    border: none;
+}
+
 body, html {
   margin: 0;
   overflow: hidden;
   height:100%;
   font-family: 'Open Sans' !important;
   bottom: -50px;
+  
+  background: white url(/img/envolve-bg-blur.png) no-repeat;
+  background-size: contain;
 }
 
 #left {
   position: absolute;
-  top: 5%;
+  top: 10%;
   bottom: -50px;
   left: 0;
-  width: 30%;
+  width: 40%;
   overflow-y: scroll;
-  background-color: #FC6E51;
+  /*background-color: #FC6E51;*/
   text-align: center;
-  height: 95%;
+  height: 90%;
 }
 
 #right {
   position: absolute;
-  top: 5%;
+  top: 0%;
   bottom: 0;
   right: 0;
-  width: 70%;
+  width: 60%;
   height: 100%;
-  background-color: #4FC1E9;
+  overflow-y: scroll;
+  /*background-color: #4FC1E9;*/
   text-align: center;
 }
 
@@ -49,7 +58,7 @@ html {
 }
  
 .row {
-    padding-top: 100px;
+    /*padding-top: 100px;*/
 }
 
  .listing {
@@ -120,9 +129,14 @@ html {
 
 /*Jake's Styles*/
 
+.inlineblock {
+  display: inline-block;
+}
+
 h1 {
-  padding: 0;
+  padding: 10px 0;
   margin: 0;
+  color: white;
 }
 
 .topbar {
@@ -136,25 +150,66 @@ h1 {
   width: 100%;
 }
 
+.detailsWrap {
+  width: 80%;
+  margin: 100px auto;
+}
 
+.profilepicture {
+  margin: 0 auto;
+  width: 15%;
+  height: 0;
+  padding-bottom: 15%;
+  border-radius: 50%;
+  background: url("/img/examplePP/jake.png") no-repeat;
+  background-size: cover;
+}
+.nameLabel p {
+  font-family: "Open Sans", sans-serif;
+  font-size: 2.4em;
+  margin: 20px 0;
+}
 
+.infowrap {
+  width: 100%;
+  margin: 0 auto;
+}
+.inforow {
+  height: 70px;
+  background-color: red;
+  margin: 0 auto;
+}
 
+.iconWrap {
+  background: center center no-repeat;
+  background-size: contain;
+  height: 75px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+.phone {
+    background-image: url("/img/phone.png");
+}
+.email {
+    background-image: url("/img/email.png");
+}
+.facebook {
+    background-image: url("/img/facebook.png");
+}
 
-
-
-
-
-
-/*@media (min-width: 768px){*/
-/*  #left {*/
- 
-/*  }*/
-  
-/*  #right {*/
-     
-/*  }*/
-/*}*/
-
-/*.horizontalwrapper {*/
-/*  overflow-x: scroll;*/
-/*}*/
+.infolabel { 
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 75px;
+    display: table;
+}
+.infolabel p {
+    display: table-cell;
+    vertical-align: middle;
+    text-align: left;
+    height: 100%;
+    width: 100%;
+    font-family: 'Open Sans', sans-serif;
+    font-weight: 300;
+    font-size: 1.7em;
+}

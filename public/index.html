@@ -5,17 +5,17 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Envolve</title>
-    <!--Bootstrap and jQuery-->
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
+    <link href="css/main.css" rel="stylesheet">
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
-    <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
-    <!--Datepicker-->
-    <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <script src="js/vendor/bootstrap-datepicker.min.js"></script>
-    <!--Custom-->
-    <link href="css/main.css" rel="stylesheet">
     <script src="js/main.js"></script>
-    <script src="FetchFBData.js"></script>
+    <script src="js/fb.js"></script>
+    <script src="js/typeahead.js/typeahead.jquery.js"></script>
+    <script src="js/inlinecomplete.js"></script>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
@@ -35,62 +35,74 @@
     <meta name="msapplication-TileColor" content="#00aba9">
     <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
+    <!--Favicons end here-->
 </head>
 <body>
     <div class="container-fluid relative ">
         <div class="row">
             <div class="transparentOverlay  col-xs-12 col-sm-8 col-sm-offset-2">
-
-                <div class="">
-                    <h1 class="center">Envolve</h1>
-                    <p class="description">Envolve is a new service to find friends to do activities with.
-                        <br> This app will use Facebook to authenticate people. Then people enter the activities they wish to do and they will be matched up with someone else with the same interests.</p>
+                <div class="row">
+                    <div id="formCol" class="formColFull">
+                        <div>
+                            <h1 class="center">Envolve</h1>
+                            <p class="description">Envolve is a new service to find friends to do activities with. This app will use Facebook to authenticate people. Then people enter the activities they wish to do and they will be matched up with someone else with the same interests.</p>
+                        </div>
+                    
+                        <form>
+                            <div class="choices">
+                                <div class="optionRow">
+                                    <div class="firstrowlabel iwanttolabel">
+                                    <p class="labelText">I want to</p>
+                                </div>
+                                <div class="firstrowfield activityfield">
+                                    <input type="text" name="search" id="search" class="typeahead" placeholder="   play tennis" />
+                                </div>
+                                <div class="firstrowlabel notifyme">
+                                    <p class="labelText">and notify me at:</p>
+                                </div>
+                                <div class="firstrowfield phonenofield">
+                                    <div id="the-basics">
+                                        <input class="typeahead" type="text" placeholder="   phone #">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="labelText ">
+                                <div style="width: 60%; display:inline-block">
+                                    <div class="secondrowlabel" style="display: inline-block;">
+                                        <p class="inline">Before</p>
+                                    </div>
+                                    <div style="display: inline-block;">
+                                        <button class="calBtn inlineblock datepicker" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
+                                            Select Date
+                                            <span style="font-size: 0.7em">(optional)</span>
+                                        </button>
+                                    </div>
+                                </div>
+                                <div style="width: 23.5%; display:inline-block">
+                                    <div class="secondrowlabel atlabel" style="display: inline-block;">
+                                        <p class="inline">at</p>
+                                    </div>
+                                    <button id="locationbtn" class="locationbtn inlineblock" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
+                    
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="center">
+                            <button class="loginbtn" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
+                                Login with Facebook
+                            </button>
+                        </div>
+                        <div class="center orsee">
+                            <a href="noticeboard.html">Or see what others are doing</a>
+                        </div>
+                    </form>
+                    
+                    </div>
+                    <div id="mapCol" class="mapColNone">
+                    
+                    </div>
                 </div>
-
-                <form>
-                    <div class="choices">
-                        <div class="optionRow">
-                            <div class="firstrowlabel" style="display: inline-block;">
-                                <p class="labelText">I want to</p>
-                            </div>
-                            <div class="firstrowfield" style="display: inline-block;">
-                                <input type="text" value="play tennis" class="wanttofield">
-                            </div>
-                        </div>
-                        <div class="labelText ">
-                            <div class="secondrowlabel" style="display: inline-block;">
-                                <p class="inline">Before</p>
-                            </div>
-                            <div style="display: inline-block;">
-                                <button class="calBtn inlineblock datepicker" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
-                                    Select Date
-                                    <span style="font-size: 0.7em">(optional)</span>
-                                </button>
-                            </div>
-                        </div>
-                        <div class="labelText">
-                            <div class="secondrowlabel" style="display: inline-block;">
-                                <p>With</p>
-                            </div>
-                            <div style="display: inline-block;">
-                                <select class="select">
-                                    <option value="both">no gender preference</option>
-                                    <option value="females">females</option>
-                                    <option value="males">males</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="center">
-                        <button class="loginbtn" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
-                            Login with Facebook
-                        </button>
-                    </div>
-                    <div class="center orsee">
-                        <a href="noticeboard.html">Or see what others are doing</a>
-                    </div>
-                </form>
-
             </div>
         </div>
     </div>

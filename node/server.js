@@ -23,13 +23,14 @@ app.use('/testing', express.static('../testing'));
 app.use(bodyParser.json()); // to support JSON-encoded bodies
 app.use(function(err, req, res, next) { //Catch JSON parsing errors and complain to client
     res.status(400).send('Malformed request. Please ensure JSON is correct and all values are double quoted.');
+    console.error('Malformed request:', req.body);
 });
 
 /* API Routes */
 /* Create/auth user
-@parameter user (firstName, lastName, gender, dob, number, email, pictureURL, serviceID, serviceName)
+@parameter user (firstName, lastName, dob, number, email, serviceID, serviceName)
 */
-app.post('/api/user/create', function(req, res) {
+app.post('/api/user', function(req, res) {
     var result = res;
     //Go find a match
     if (req.body) {
@@ -39,24 +40,26 @@ app.post('/api/user/create', function(req, res) {
         });
     }
     else {
-        result.status(400).send('Please ensure you are sending user and matchDetails objects.');
+        result.status(400).send('Please ensure you are sending correct JSON.');
     }
 });
 
 /* Create a match request
-@parameter matchDetails (gender, locationX, locationY, endDate, publicName)
+@parameter matchDetails (locationX, locationY, endDate, publicName)
 */
-app.post('/api/request/create', function(req, res) {
+app.post('/api/request', function(req, res) {
     var result = res;
+    var userID = req.body.userID;
     //Go find a match
     if (req.body) {
-        db.addMatch(req.userID, req.body, function(requestID) {
+        db.addRequest(userID, req.body, function(requestID) {
         //Send 
             result.status(200).send({"requestID" : requestID});
+            db.findMatches(userID, requestID);
         });
     }
     else {
-        result.status(400).send('Please ensure you are sending user and matchDetails objects.');
+        result.status(400).send('Please ensure you are sending correct JSON.');
     }
 });
 
@@ -68,3 +71,5 @@ var server = app.listen(port, function() {
     var port = server.address().port;
     console.log('Listening at http://%s:%s', host, port);
 });
+
+db.findMatches(1,1,"baseball","51.503059151", "-0.1524891");
