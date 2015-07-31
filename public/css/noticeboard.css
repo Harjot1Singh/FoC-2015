@@ -23,7 +23,7 @@ body, html {
   position: absolute;
   width: 500px;
   overflow-y: scroll;
-  height: 91vh;
+  height: 100%;
 }
 .row1 {
     transform: translateX(0px);
@@ -43,8 +43,8 @@ body, html {
 
 .horizontalwrapper {
     position: fixed;
-    bottom: 0;
-    height: 95vh;
+    top: 10%;
+    height: 90%;
     width: 100vw;
     overflow-x: scroll;
     margin-right: 300px;
@@ -169,8 +169,8 @@ h1 {
 
 /* Let's get this party started */
 ::-webkit-scrollbar {
-    width: 10px;
-    height: 10px;
+    width: 8px;
+    height: 8px;
 }
  
 /* Track */
@@ -188,7 +188,7 @@ h1 {
     -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0); 
 }
 ::-webkit-scrollbar-thumb:window-inactive {
-	background: rgba(255,0,0,0.4); 
+	background: rgba(0,0,0,0.4); 
 }
 
 

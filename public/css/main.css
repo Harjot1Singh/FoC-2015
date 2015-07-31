@@ -19,6 +19,13 @@ body {
     font-family: 'Open Sans', sans-serif !important;
 }
 
+.logo {
+    height: 133px;
+    width: 100%;
+    background: url("/img/envolve-logo-full-color.png") center no-repeat;
+    background-size: 351px 130px;
+}
+
 .description {
     width: 80%;
     margin: 0 auto;
@@ -77,10 +84,13 @@ body {
     width: 29%;
     margin-left: 10px;
 }
-.typeahead {
+.fieldstyle {
     border: 3px solid #c9c6c6;
     width: 100%; 
-    height: 44px;
+    height: 48px;
+    padding-left: 10px;
+    font-size: 1.3em;
+    font-weight: 300;
 }
 .secondrowlabel {
     width: 44%;
@@ -180,6 +190,15 @@ body {
   background-size: 60%;
 }
 
+.beforecontainer {
+    width: 60%; 
+    display:inline-block
+}
+.locationcontainer {
+    width: 23.5%; 
+    display:inline-block;
+}
+
 /*
  *    Animations
  */
@@ -214,8 +233,9 @@ body {
      margin-top: 50px;
  }
  
- .choices {
-     
+ .container {
+     width: 30%;
+     display: inline-block;
  }
  
  .row-fluid{
@@ -242,52 +262,56 @@ body {
   background-color: #ffffff;
 }
 
-    #search {
-      padding: 5px;
-      font-size: 1.2em;
-      letter-spacing: 0;
-      font-weight: normal;
-      font-family: Helvetica, Arial, sans-serif !important;
-      position: relative;
-      color: #333;
-      width: 200px;
-      background: #fff;
-      z-index: 10;
-    }
+#search {
+    border: 3px solid #c9c6c6;
+    font-size: 1.3em;
+    letter-spacing: 0;
+    font-weight: 300;
+    font-family: 'Open Sans', sans-serif;
+    position: relative;
+    color: #333;
+    width: 100%;
+    z-index: 10;
+}
 
 /*
  *    Responsive styles
  */
  
  #formCol {
-     display: inline-block;
+     
  }
  #mapCol {
-     height: 100vh;
+     height: 50vh;
      margin: 0;
-     background-color: red;
-     display: inline-block;
+     /*background-color: red;*/
  }
  
  .formColFull {
      width: 100%;
+     display: inline-block;
  }
  .formColHalf {
      width: 49%;
+     display: inline-block;
  }
  .formColNone {
      width: 0%;
+     display: none;
  }
  .mapColFull {
      width: 100%;
+     display: inline-block;
  }
  .mapColHalf {
      width: 50%;
      left: 50%;
+     display: inline-block;
  }
  .mapColNone {
      width: 0%;
      left: 100%;
+     display: none;
  }
  
 @media all and (min-width: 0px) and (max-width: 1250px) {
@@ -300,7 +324,9 @@ body {
     .secondrowlabel {
         width: 24%;
     }
-    
+    .container {
+        width: ;
+    }
 }
 
 @media all and (min-width: 910px) and (max-width: 975px) {
@@ -313,6 +339,9 @@ body {
 }
 
 @media all and (min-width: 0px) and (max-width: 910px) {
+    .container {
+        width: 70%;
+    }
     .labelText {
         font-size: 1.3em;
     }
@@ -327,7 +356,16 @@ body {
         width: 25%;
     }
     .phonenofield {
-        width: 70%;
+        width: 65%;
+    }
+    .notifyme {
+        width: 26%;
+    }
+    .beforecontainer {
+        width: 100%;
+    }
+    .locationcontainer {
+        width: 100%;
     }
 }
 
@@ -336,7 +374,7 @@ body {
         font-size: 1.0em;
     }
     .secondrowlabel {
-        width: 18%;
+        width: 33%;
     }
 }
 
@@ -371,7 +409,7 @@ body {
         width: 100%;
     }
     .phonenofield {
-        width: 100%;
+        width: 94%;
     }
     
     .secondrowlabel {
@@ -389,6 +427,9 @@ body {
         width: 75vw;
         margin-left: auto;
         margin-right: auto;
+    }
+    .container {
+        width: 100%;
     }
 }
 

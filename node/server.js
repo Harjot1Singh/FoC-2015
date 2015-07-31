@@ -35,8 +35,10 @@ app.post('/api/user', function(req, res) {
     //Go find a match
     if (req.body) {
         db.addUser(req.body, function(userID) {
-        //Send 
-            result.status(200).send({"userID" : userID});
+            //Send 
+            result.status(200).send({
+                "userID": userID
+            });
         });
     }
     else {
@@ -50,12 +52,24 @@ app.post('/api/user', function(req, res) {
 app.post('/api/request', function(req, res) {
     var result = res;
     var userID = req.body.userID;
+    var requestID;
     //Go find a match
     if (req.body) {
-        db.addRequest(userID, req.body, function(requestID) {
-        //Send 
-            result.status(200).send({"requestID" : requestID});
-            db.findMatches(userID, requestID);
+        db.getUserDetails(userID, function (row) {
+            var message = "Hey, " + row.firstname + ". Thanks for signing up to Envolve. We'll let you know when anyone else feels like " + req.body.activityName + "."
+            sms.send(row.number, message);
+        });
+        db.addRequest(userID, req.body, function(reqID) {
+            requestID = reqID;
+            //Send 
+            result.status(200).send({
+                "requestID": requestID
+            });
+            db.findMatches(requestID, function(mainUser, otherUser, distanceMiles) {
+                //Link user id to other request and vice versa
+                db.insertMatch(otherUser.userid, mainUser.id, distanceMiles);
+                db.insertMatch(mainUser.userid, otherUser.id, distanceMiles);
+            });
         });
     }
     else {
@@ -72,4 +86,6 @@ var server = app.listen(port, function() {
     console.log('Listening at http://%s:%s', host, port);
 });
 
-db.findMatches(1,1,"baseball","51.503059151", "-0.1524891");
+//TODO Expiry of single user from matches
+//TODO acceptance and rejection of requests
+//TODO

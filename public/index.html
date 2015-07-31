@@ -5,7 +5,8 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Envolve</title>
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp"></script>
+    
+    <script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
@@ -16,6 +17,9 @@
     <script src="js/fb.js"></script>
     <script src="js/typeahead.js/typeahead.jquery.js"></script>
     <script src="js/inlinecomplete.js"></script>
+    <script src="js/vendor/polarblau-suggest/src/jquery.suggest.js"></script>
+    <script src="autocomplete.js"></script>
+    <script src="js/distancewidget.js"></script>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
@@ -36,6 +40,7 @@
     <meta name="msapplication-TileImage" content="favicons/mstile-144x144.png">
     <meta name="theme-color" content="#ffffff">
     <!--Favicons end here-->
+    <link href="css/map-styles.css" rel="stylesheet">
 </head>
 <body>
     <div class="container-fluid relative ">
@@ -44,7 +49,7 @@
                 <div class="row">
                     <div id="formCol" class="formColFull">
                         <div>
-                            <h1 class="center">Envolve</h1>
+                            <div class="logo"></div>
                             <p class="description">Envolve is a new service to find friends to do activities with. This app will use Facebook to authenticate people. Then people enter the activities they wish to do and they will be matched up with someone else with the same interests.</p>
                         </div>
                     
@@ -54,20 +59,20 @@
                                     <div class="firstrowlabel iwanttolabel">
                                     <p class="labelText">I want to</p>
                                 </div>
-                                <div class="firstrowfield activityfield">
-                                    <input type="text" name="search" id="search" class="typeahead" placeholder="   play tennis" />
-                                </div>
+                                    <div class="container">
+                                        <input type="text" name="search" id="search" class="typeahead"/>
+                                    </div>
                                 <div class="firstrowlabel notifyme">
                                     <p class="labelText">and notify me at:</p>
                                 </div>
                                 <div class="firstrowfield phonenofield">
                                     <div id="the-basics">
-                                        <input class="typeahead" type="text" placeholder="   phone #">
+                                        <input class="fieldstyle" id="phonenumber" type="text" placeholder="phone #">
                                     </div>
                                 </div>
                             </div>
                             <div class="labelText ">
-                                <div style="width: 60%; display:inline-block">
+                                <div class="beforecontainer">
                                     <div class="secondrowlabel" style="display: inline-block;">
                                         <p class="inline">Before</p>
                                     </div>
@@ -78,7 +83,7 @@
                                         </button>
                                     </div>
                                 </div>
-                                <div style="width: 23.5%; display:inline-block">
+                                <div class="locationcontainer">
                                     <div class="secondrowlabel atlabel" style="display: inline-block;">
                                         <p class="inline">at</p>
                                     </div>
@@ -100,7 +105,11 @@
                     
                     </div>
                     <div id="mapCol" class="mapColNone">
-                    
+                        <button id="closeMap">Close</button>
+                        <label>radius is <span id="dist"></span> miles <span id="of"></span></label>
+                        <div id="map-wrapper">
+                            <div id="map"></div> 
+                        </div>
                     </div>
                 </div>
             </div>
@@ -108,3 +117,8 @@
     </div>
 </body>
 </html>
+
+<!--<div>-->
+<!--  <label>radius is <span id="dist"></span> miles-->
+<!--  <span id="of"></span></label>-->
+<!--</div>-->

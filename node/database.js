@@ -1,5 +1,7 @@
 var pg = require("pg"),
-    distance = require("google-distance");
+    distance = require("google-distance"),
+    geolib = require("geolib");
+distance.apiKey = '';
 
 //Wrapper for all database functionality
 var DB = function() {
@@ -28,7 +30,8 @@ DB.prototype.setupDB = function() {
                     id SERIAL, \
                     firstName VARCHAR(50), \
                     lastName VARCHAR(50), \
-                    DOB DATE, \
+                    minAge INT, \
+                    maxAge INT, \
                     number VARCHAR(20), \
                     email VARCHAR(100), \
                     serviceID VARCHAR(50) NOT NULL, \
@@ -43,8 +46,9 @@ DB.prototype.setupDB = function() {
         client.query("CREATE TABLE IF NOT EXISTS tblQueue ( \
                     id SERIAL, \
                     userID INT, \
-                    publicX FLOAT, \
-                    publicY FLOAT, \
+                    publicLatitude FLOAT, \
+                    publicLongitude FLOAT, \
+                    publicRadius FLOAT, \
                     gpsX FLOAT, \
                     gpsY FLOAT, \
                     publicName VARCHAR(50), \
@@ -109,10 +113,10 @@ DB.prototype.addUser = function(user, onComplete) {
                 //Insert the user entry
                 client.query({
                     text: 'INSERT INTO tblUsers \
-                (firstname, lastname, email, dob, number, servicename, serviceid) \
-                VALUES ($1, $2, $3, $4, $5, $6, $7) \
+                (firstname, lastname, email, minAge, maxAge, number, servicename, serviceid) \
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8) \
                 RETURNING id;',
-                    values: [user.firstName, user.lastName, user.email, user.DOB, user.number, user.serviceName, user.serviceID],
+                    values: [user.firstName, user.lastName, user.email, user.minAge, user.maxAge, user.number, user.serviceName, user.serviceID],
                     name: 'Insert user details'
                 }).on('error', function(err) {
                     console.log('Error:', err);
@@ -145,10 +149,10 @@ DB.prototype.addRequest = function(userID, matchDetails, onComplete) {
         var requestID;
         client.query({
             text: 'INSERT INTO tblQueue \
-                    (userid, gpsx, gpsy, publicx, publicy, publicname, enddate, activityName) \
-                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8) \
+                    (userid, gpsx, gpsy, publicLongitude, publicLatitude, publicname, enddate, activityName, publicradius) \
+                    VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) \
                     RETURNING id;',
-            values: [userID, matchDetails.gpsX, matchDetails.gpsY, matchDetails.publicX, matchDetails.publicY, matchDetails.publicName, matchDetails.endDate, matchDetails.activityName],
+            values: [userID, matchDetails.gpsX, matchDetails.gpsY, matchDetails.publicLongitude, matchDetails.publicLatitude, matchDetails.publicName, matchDetails.endDate, matchDetails.activityName, matchDetails.publicRadius],
             name: 'Insert queue request'
         }).on('row', function(row, result) {
             if (row.id) {
@@ -164,7 +168,7 @@ DB.prototype.addRequest = function(userID, matchDetails, onComplete) {
 };
 
 //finds matches and sets them up in tblMatches
-DB.prototype.findMatches = function(userID, requestID, activityName, publicX, publicY, onComplete) {
+DB.prototype.findMatches = function(requestID, onMatch) {
     pg.connect(this.connString, function(err, client, done) {
         if (err) {
             done();
@@ -174,77 +178,162 @@ DB.prototype.findMatches = function(userID, requestID, activityName, publicX, pu
             text: 'SELECT * \
                    FROM tblUsers, tblQueue \
                     WHERE tblQueue.userID = tblUsers.id \
-                    AND tblQueue.activityName = $1 \
-                    AND tblUsers.id = $2',
-            values: [activityName, userID],
-            name: 'Find similar activites '
+                    AND tblQueue.id = $1;',
+            values: [requestID],
+            name: 'Find user and request details '
         }).on('row', function(row, result) {
-            //Check distances between all of these and submitted
-            console.log(row);
-            console.log(row.publicx + ',' + row.publicy);
-            console.log(publicX + ',' + publicY);
-            distance.get({
-                    origin: row.publicx + ',' + row.publicy,
-                    destination: publicX + ',' + publicY,
-                    units: "imperial",
-                    mode: "walking"
-                },
-                function(err, data) {
-                    if (err) return console.log(err);
-                    console.log("DISTANCE:", data);
-                });
-        }).on('end', function(err, result) {
+            //get request and user information about user who submitted a match request
+            var mainUser = row;
+            client.query({
+                text: 'SELECT * \
+                   FROM tblUsers, tblQueue \
+                    WHERE tblQueue.userID = tblUsers.id \
+                    AND tblQueue.activityName = $1 \
+                    AND tblUsers.id != $2',
+                values: [mainUser.activityname, mainUser.userid],
+                name: 'Find other users with activity '
+            }).on('row', function(row, result) {
+                var otherUser = row;
+                //Check distances between all of these and submitted
+                otherUser.publicCoords = {
+                    latitude: otherUser.publiclatitude,
+                    longitude: otherUser.publiclongitude
+                };
 
-            done();
-            //Callback and finish
-            // onComplete(requestID);
+                mainUser.publicCoords = {
+                    latitude: mainUser.publiclatitude,
+                    longitude: mainUser.publiclongitude
+                };
+                console.log(otherUser.publiclatitude + ',' + otherUser.publiclongitude);
+                console.log(mainUser.publiclatitude + ',' + mainUser.publiclongitude);
+                console.log("user name", mainUser.firstname);
+                console.log("other user name", otherUser.firstname);
+                console.log("user radius", mainUser.publicradius);
+                console.log("other user radius:", otherUser.publicradius);
+                //Miles to KM
+                function milestokm(miles) {
+                    return 1.603 * miles;
+                }
+                //Returns boolean for whether ages are acceptable in terms of matching
+                function matchAge(agerange1, agerange2) {
+                    var larger;
+                    var smaller;
+                    if (agerange1.min === agerange2.min) {
+                        //equal age range
+                        return true;
+                    }
+                    else if (agerange1.min > agerange2.min) {
+                        //allows for universal method
+                        larger = agerange1;
+                        smaller = agerange2;
+                    }
+                    else {
+                        smaller = agerange1;
+                        larger = agerange2;
+                    }
+                    //check age matching isn't invalid i.e. 13-17 with 21+. Return true if valid.
+                    if (smaller.min == 13 && larger.min == 21) {
+                        return false;
+                    }
+                    else return true;
+                }
+                var otherInMain = geolib.isPointInCircle(otherUser.publicCoords, mainUser.publicCoords, milestokm(mainUser.publicradius * 1000));
+                var mainInOther = geolib.isPointInCircle(mainUser.publicCoords, otherUser.publicCoords, milestokm(otherUser.publicradius * 1000));
+                var ageAllowed = matchAge({
+                    min: mainUser.minage,
+                    max: mainUser.maxage
+                }, {
+                    min: otherUser.minage,
+                    max: otherUser.maxage
+                });
+                console.log("Other user's point in main user's point:", otherInMain, ". Minimum age:", otherUser.minage);
+                console.log("Main user's point in other user's point:", mainInOther, ". Minimum age:", mainUser.minage);
+                console.log("Ages matched/valid:", ageAllowed);
+                //get distance via geolib - straight line but works with radii
+                if ((mainInOther && otherInMain) && ageAllowed) {
+                    var distanceMiles = geolib.convertUnit('mi', geolib.getDistance(mainUser.publicCoords, otherUser.publicCoords));
+                    console.log("Match. Distance:", distanceMiles, 'miles');
+                    if (onMatch) onMatch(mainUser, otherUser, distanceMiles);
+                }
+            }).on('end', function(err, result) {
+                done();
+            });
+
         });
     });
 };
 
-DB.prototype.getMatches = function(userID, onComplete) {
+DB.prototype.getUserDetails = function(userID, onRow) {
     pg.connect(this.connString, function(err, client, done) {
         if (err) {
             done();
             return console.error('Error fetching client from pool', err);
         }
-        //Insert match query
-        var requestID;
         client.query({
-            text: "SELECT * \
-                    FROM tblQueues, tblUsers, tblMatches \
-                    WHERE tblUsers.mat = tblQueues.userID \
-                    AND ;",
-            values: [],
-            name: 'Insert queue request'
-        }).on('row', function(row, result) {
-            if (row.id) {
-                requestID = row.id;
-            }
+                text: "SELECT * \
+                    FROM tblUsers \
+                    WHERE id = $1;",
+                values: [userID],
+                name: 'Select user details'
+            }).on('row', onRow)
+            .on('end', function(err, result) {
+                done();
+            });
+    });
+};
+
+DB.prototype.insertMatch = function(userID, requestID, distanceFromVenue) {
+    pg.connect(this.connString, function(err, client, done) {
+        if (err) {
+            done();
+            return console.error('Error fetching client from pool', err);
+        }
+        client.query({
+            text: "INSERT INTO tblMatches \
+                    (distanceFromVenue, userid, requestid, accepted) \
+                    VALUES ($1,$2,$3) ;",
+            values: [distanceFromVenue, userID, requestID, false],
+            name: 'Insert match'
         }).on('end', function(err, result) {
             done();
-            console.log('Inserted request', requestID, matchDetails.activityName, 'into the queue');
-            //Callback and finish
-            onComplete(requestID);
+            console.log('Inserted match. User:', userID, "Request:", requestID);
+        });
+    });
+};
+
+DB.prototype.deleteRequest = function(requestID) {
+    //delete matches from tblmatches containing requestID
+    //delete request from tblqueue
+    pg.connect(this.connString, function(err, client, done) {
+        if (err) {
+            done();
+            return console.error('Error fetching client from pool', err);
+        }
+        client.query({
+            text: 'DELETE FROM tblMatches \
+                   WHERE requestID = $1;',
+            values: [requestID],
+            name: 'Delete requests from matches'
+        }).on('end', function(err, result) {
             client.query({
-                text: "SELECT * \
-                    FROM tblQueues, tblUsers, tblMatches \
-                    WHERE tblUsers.mat = tblQueues.userID \
-                    AND ;",
-                values: [],
-                name: 'Insert queue request'
-            }).on('row', function(row, result) {
-                if (row.id) {
-                    requestID = row.id;
-                }
+                text: 'DELETE FROM tblQueue \
+                   WHERE id = $1;',
+                values: [requestID],
+                name: 'Delete request'
             }).on('end', function(err, result) {
                 done();
-                console.log('Inserted request', requestID, matchDetails.activityName, 'into the queue');
-                //Callback and finish
-                onComplete(requestID);
+                console.log('Deleted request', requestID);
             });
         });
     });
+};
+
+DB.prototype.rejectMatch = function(matchID) {
+    //get userID and requestID
+};
+
+DB.prototype.getMatches = function(userID, onMatchFound) {
+
 };
 
 module.exports = DB;

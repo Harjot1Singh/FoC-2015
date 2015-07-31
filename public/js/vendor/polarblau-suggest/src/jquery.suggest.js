@@ -18,35 +18,36 @@
 (function($) {
 
   $.fn.suggest = function(source, options) {
-console.log("hi")
     var settings = $.extend({
-      suggestionColor       : '#666666',
-      moreIndicatorClass    : 'suggest-more',
+      suggestionColor       : '#AAAAAA',
+      // moreIndicatorClass    : 'suggest-more',
       moreIndicatorText     : '&hellip;'
     }, options);
 
     return this.each(function() {
 
       $this = $(this);
+      console.log($(this));
 
       // this helper will show possible suggestions
       // and needs to match the input field in style
       var $suggest = $('<div/>', {
         'css' : {
           'position'        : 'absolute',
-          'height'          : $this.height(),
-          'width'           : $this.width(),
+          'height'          : '44px',
+          'width'           : '99%',
           'top'             : $this.css('borderTopWidth'),
           'left'            : $this.css('borderLeftWidth'),
           'padding'         : $this.cssShortForAllSides('padding'),
           'margin'          : $this.cssShortForAllSides('margin'),
-          'fontFamily'      : $this.css('fontFamily'),
-          'fontSize'        : $this.css('fontSize'),
+          'fontFamily'      : "'Open Sans', sans-serif",
+          'fontSize'        : '1.3em',
           'fontStyle'       : $this.css('fontStyle'),
+          'fontWeight'      : '300',
           'lineHeight'      : $this.css('lineHeight'),
           'fontWeight'      : $this.css('fontWeight'),
           'letterSpacing'   : $this.css('letterSpacing'),
-          'backgroundColor' : $this.css('backgroundColor'),
+          'backgroundColor' : 'white',
           'color'           : settings.suggestionColor
         }
       });
@@ -63,7 +64,7 @@ console.log("hi")
         },
         'class'             : settings.moreIndicatorClass
       })
-      .html(settings.moreIndicatorText)
+      // .html(settings.moreIndicatorText)
       .hide();
 
       $this
