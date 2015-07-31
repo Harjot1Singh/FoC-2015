@@ -6,6 +6,7 @@
  *
  * @constructor
  */
+
 function DistanceWidget(opt_options) {
   var options = opt_options || {};
 
@@ -312,24 +313,23 @@ var map;
 var geocodeTimer;
 var profileMarkers = [];
 
-function init() {
-  var mapDiv = document.getElementById('map');
-  map = new google.maps.Map(mapDiv, {
-    center: new google.maps.LatLng(userlat, userlong),
-    zoom: 15,
-    mapTypeId: google.maps.MapTypeId.ROADMAP
-  });
-
-  distanceWidget = new DistanceWidget({
+function GetLocation(location) {
+    if (location) {
+    userlat = location.coords.latitude;
+    userlong = location.coords.longitude;
+    };
+    map.setCenter(new google.maps.LatLng(userlat, userlong));
+    distanceWidget = new DistanceWidget({
     map: map,
-    distance: 16.09344, // Starting distance in km.
+    distance: 7, // Starting distance in km.
     maxDistance: 2500, // Twitter has a max distance of 2500km.
     color: '#000000',
     activeColor: '#5599bb',
     sizerIcon: 'resize-off.png',
     activeSizerIcon: 'resize.png'
   });
-
+  
+  
   google.maps.event.addListener(distanceWidget, 'distance_changed',
       updateDistance);
 
@@ -341,6 +341,19 @@ function init() {
   updateDistance();
   updatePosition();
   addActions();
+}
+
+function init() {
+  var mapDiv = document.getElementById('map');
+  navigator.geolocation.getCurrentPosition(GetLocation);
+  map = new google.maps.Map(mapDiv, {
+    center: new google.maps.LatLng(userlat, userlong),
+    zoom: 15,
+    mapTypeId: google.maps.MapTypeId.ROADMAP
+  });
+
+  
+
 }
 
 function updatePosition() {

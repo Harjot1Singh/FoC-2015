@@ -23,7 +23,7 @@ body {
     height: 133px;
     width: 100%;
     background: url("/img/envolve-logo-full-color.png") center no-repeat;
-    background-size: 351px 130px;
+    background-size: 450px 130px;
 }
 
 .description {
@@ -204,11 +204,11 @@ body {
     width: 100%;
 }
 #getEnvolvedBtn p {
-    width: 100%;
+    width: 15%;
     height: 100%;
     text-align: center;
     padding: 3% 0;
-    margin: 0;
+    margin: 0 0 0 42%;
     color: #fff;
 }
 
@@ -221,11 +221,11 @@ body {
 .getEnvolvedShown:hover {
     background-color: #6FB173;
 }
-.getEnvolvedShown: active {
+.getEnvolvedShown:active {
     background-color: #58B078;
 }
 .getEnvolvedShown p {
-    height: 100%;
+    height: 15%;
     text-align: center;
     padding: 3% 0 3% 45%;
     width: 57%;
@@ -384,8 +384,10 @@ body {
     .secondrowlabel {
         width: 24%;
     }
-    .container {
-        width: ;
+    
+    #getEnvolvedBtn p {
+        width: 20%;
+        margin-left: 40%;
     }
 }
 
@@ -490,6 +492,9 @@ body {
     }
     .container {
         width: 100%;
+    }
+    .goIcon {
+        display: none;
     }
 }
 
