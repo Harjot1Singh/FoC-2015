@@ -1,11 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Envolve</title>
-    
+
     <script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
@@ -42,80 +43,86 @@
     <!--Favicons end here-->
     <link href="css/map-styles.css" rel="stylesheet">
 </head>
+
 <body>
     <div class="container-fluid relative ">
         <div class="row">
-            <div class="transparentOverlay  col-xs-12 col-sm-8 col-sm-offset-2">
+            <div class="transparentOverlay col-xs-12 col-sm-8 col-sm-offset-2">
                 <div class="row">
                     <div id="formCol" class="formColFull">
                         <div>
                             <div class="logo"></div>
-                            <p class="description">Envolve is a new service to find friends to do activities with. This app will use Facebook to authenticate people. Then people enter the activities they wish to do and they will be matched up with someone else with the same interests.</p>
+                            <p class="description">Envolve is a new service to find friends to do activities with. You will need a Facebook account to login to the service. Fill in all the required fields on this page and simply log in to start finding matches!</p>
                         </div>
-                    
+
                         <form>
                             <div class="choices">
                                 <div class="optionRow">
                                     <div class="firstrowlabel iwanttolabel">
-                                    <p class="labelText">I want to</p>
-                                </div>
+                                        <p class="labelText">I feel like</p>
+                                    </div>
                                     <div class="container">
-                                        <input type="text" name="search" id="search" class="typeahead"/>
+                                        <input type="text" name="search" id="search" class="typeahead">
                                     </div>
-                                <div class="firstrowlabel notifyme">
-                                    <p class="labelText">and notify me at:</p>
+                                    <div class="firstrowlabel notifyme">
+                                        <p class="labelText">and notify me at:</p>
+                                    </div>
+                                    <div class="firstrowfield phonenofield">
+                                        <div id="the-basics">
+                                            <input class="fieldstyle" id="phonenumber" type="text" placeholder="phone #">
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="firstrowfield phonenofield">
-                                    <div id="the-basics">
-                                        <input class="fieldstyle" id="phonenumber" type="text" placeholder="phone #">
+                                <div class="labelText ">
+                                    <div class="beforecontainer">
+                                        <div class="secondrowlabel" style="display: inline-block;">
+                                            <p class="inline">Before</p>
+                                        </div>
+                                        <div style="display: inline-block;">
+                                            <button class="calBtn inlineblock datepicker" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
+                                                Select Date
+                                                <span style="font-size: 0.7em"></span>
+                                            </button>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
-                            <div class="labelText ">
-                                <div class="beforecontainer">
-                                    <div class="secondrowlabel" style="display: inline-block;">
-                                        <p class="inline">Before</p>
-                                    </div>
-                                    <div style="display: inline-block;">
-                                        <button class="calBtn inlineblock datepicker" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
-                                            Select Date
-                                            <span style="font-size: 0.7em">(optional)</span>
+                                    <div class="locationcontainer">
+                                        <div class="secondrowlabel atlabel" style="display: inline-block;">
+                                            <p class="inline">at</p>
+                                        </div>
+                                        <button id="locationbtn" class="locationbtn inlineblock" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
+
                                         </button>
                                     </div>
                                 </div>
-                                <div class="locationcontainer">
-                                    <div class="secondrowlabel atlabel" style="display: inline-block;">
-                                        <p class="inline">at</p>
-                                    </div>
-                                    <button id="locationbtn" class="locationbtn inlineblock" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
-                    
-                                    </button>
-                                </div>
                             </div>
-                        </div>
-                        <div class="center">
-                            <button class="loginbtn" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
-                                Login with Facebook
-                            </button>
-                        </div>
-                        <div class="center orsee">
-                            <a href="noticeboard.html">Or see what others are doing</a>
-                        </div>
-                    </form>
-                    
+                            <div class="center">
+                                <button class="loginbtn" data-show-faces="false" data-auto-logout-link="false" scope="public_profile, email" onlogin="checkLoginState();">
+                                    Login with Facebook
+                                </button>
+                            </div>
+                            <div class="center orsee">
+                                <a href="noticeboard.html">Or see what others are doing</a>
+                            </div>
+                        </form>
+
                     </div>
                     <div id="mapCol" class="mapColNone">
                         <button id="closeMap">Close</button>
-                        <label>radius is <span id="dist"></span> miles <span id="of"></span></label>
-                        <div id="map-wrapper">
-                            <div id="map"></div> 
-                        </div>
+                        <label>Matching radius is <span id="dist"></span> miles around<span id="of"></span></label>
+                        <div id="map"></div>
                     </div>
+                    <a href="#">
+                        <div id="getEnvolvedBtn" class="getEnvolvedHidden">
+                            <p id="envolveLabel" class="getEnvolvedCompHidden">GET ENVOLVED</p>
+                            <div id="goIcon" class="goIcon getEnvolvedCompHidden"></div>
+                        </div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
 </html>
 
 <!--<div>-->

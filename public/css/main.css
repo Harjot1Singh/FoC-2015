@@ -145,7 +145,7 @@ body {
 }
 
 .orsee {
-    margin: 10px 0 10px 0;
+    margin: 10px 0 30px 0;
 }
 .orsee a {
     font-weight: 400;
@@ -199,6 +199,65 @@ body {
     display:inline-block;
 }
 
+#getEnvolvedBtn {
+    background-color: #3EB94E;
+    width: 100%;
+}
+#getEnvolvedBtn p {
+    width: 100%;
+    height: 100%;
+    text-align: center;
+    padding: 3% 0;
+    margin: 0;
+    color: #fff;
+}
+
+.getEnvolvedShown {
+    height: 65px;
+    background-color: #3EB94E;
+    width: 100%;
+    border-radius: 0 0 5px 5px;
+}
+.getEnvolvedShown:hover {
+    background-color: #6FB173;
+}
+.getEnvolvedShown: active {
+    background-color: #58B078;
+}
+.getEnvolvedShown p {
+    height: 100%;
+    text-align: center;
+    padding: 3% 0 3% 45%;
+    width: 57%;
+    margin: 0 auto;
+    color: #fff;
+    display: inline-block;
+}
+.goIcon {
+    background: url(/img/go-arrow.png) center center no-repeat;
+    background-size: contain;
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+}
+
+.getEnvolvedHidden {
+    height: 0px;
+    opacity: 0;
+}
+.getEnvolvedCompHidden {
+    opacity: 0;
+}
+.getEnvolvedCompShown {
+    opacity: 1;
+}
+
+.orseeHidden {
+    height: 0;
+    margin: 0;
+    opacity: 0;
+}
+
 /*
  *    Animations
  */
@@ -229,7 +288,7 @@ body {
      background: rgba(255,255,255,0.85);
      position: absolute;
      border-radius: 5px;
-     padding: 20px 50px;
+     padding: 20px 15px 0 15px;
      margin-top: 50px;
  }
  
@@ -310,8 +369,9 @@ body {
  }
  .mapColNone {
      width: 0%;
-     left: 100%;
-     display: none;
+     position: absolute;
+    left: -100%;
+    /*if you change this css it'll break the map*/
  }
  
 @media all and (min-width: 0px) and (max-width: 1250px) {

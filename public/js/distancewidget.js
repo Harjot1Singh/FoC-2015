@@ -316,7 +316,7 @@ function init() {
   var mapDiv = document.getElementById('map');
   map = new google.maps.Map(mapDiv, {
     center: new google.maps.LatLng(userlat, userlong),
-    zoom: 8,
+    zoom: 15,
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 

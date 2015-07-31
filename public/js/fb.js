@@ -103,7 +103,7 @@ function SendToDB(callback) {
 			dataType: "json",
 			success: function(data) {
 				console.log(data);
-				callback(data);
+				$.cookie("useridcookie", JSON.stringify($("#data").data()));
 				console.log("done user send!");
 				userid = data;
 			},

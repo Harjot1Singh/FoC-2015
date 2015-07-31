@@ -55,8 +55,8 @@ app.post('/api/request', function(req, res) {
     var requestID;
     //Go find a match
     if (req.body) {
-        db.getUserDetails(userID, function (row) {
-            var message = "Hey, " + row.firstname + ". Thanks for signing up to Envolve. We'll let you know when anyone else feels like " + req.body.activityName + "."
+        db.getUserDetails(userID, function(row) {
+            var message = "Hey, " + row.firstname + ". Thanks for signing up to Envolve. \n We'll let you know when anyone else feels like " + req.body.activityName + "."
             sms.send(row.number, message);
         });
         db.addRequest(userID, req.body, function(reqID) {
@@ -69,6 +69,8 @@ app.post('/api/request', function(req, res) {
                 //Link user id to other request and vice versa
                 db.insertMatch(otherUser.userid, mainUser.id, distanceMiles);
                 db.insertMatch(mainUser.userid, otherUser.id, distanceMiles);
+                var mainMessage = "Hey, " + mainUser.firstname + ". " + otherUser.firstName + " also feels like " + mainUser.activityName + ". \n Visit http://envolve-app.com/viewmatches to view more details."
+                sms.send(mainUser.number, mainMessage);
             });
         });
     }
@@ -79,12 +81,25 @@ app.post('/api/request', function(req, res) {
 
 
 
+
 /* Server instantiation */
 var server = app.listen(port, function() {
     var host = server.address().address;
     var port = server.address().port;
     console.log('Listening at http://%s:%s', host, port);
 });
+
+db.getMatches(2, function(row) {
+    console.log(row);
+});
+
+//Timer for expiry of matches
+setInterval(function() {
+    db.deleteExpired(function () {
+       //On delete 
+    });
+}, 60000);
+//86400000 ms in a day
 
 //TODO Expiry of single user from matches
 //TODO acceptance and rejection of requests

@@ -23,7 +23,9 @@ $(resize).resizable({
           // set the content panel width
           $("#content").width(containerWidth - currentWidth - padding);            
       }
+    });
 });
 
-
+$(document).ready(function(){
+    $('#of').html('of ' + results[1].formatted_address); 
 });

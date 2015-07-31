@@ -282,6 +282,25 @@ DB.prototype.getUserDetails = function(userID, onRow) {
     });
 };
 
+DB.prototype.getRequestDetails = function(requestID, onRow) {
+    pg.connect(this.connString, function(err, client, done) {
+        if (err) {
+            done();
+            return console.error('Error fetching client from pool', err);
+        }
+        client.query({
+                text: "SELECT * \
+                    FROM tblQueue \
+                    WHERE id = $1;",
+                values: [requestID],
+                name: 'Select request details'
+            }).on('row', onRow)
+            .on('end', function(err, result) {
+                done();
+            });
+    });
+};
+
 DB.prototype.insertMatch = function(userID, requestID, distanceFromVenue) {
     pg.connect(this.connString, function(err, client, done) {
         if (err) {
@@ -291,7 +310,7 @@ DB.prototype.insertMatch = function(userID, requestID, distanceFromVenue) {
         client.query({
             text: "INSERT INTO tblMatches \
                     (distanceFromVenue, userid, requestid, accepted) \
-                    VALUES ($1,$2,$3) ;",
+                    VALUES ($1,$2,$3,$4) ;",
             values: [distanceFromVenue, userID, requestID, false],
             name: 'Insert match'
         }).on('end', function(err, result) {
@@ -328,12 +347,51 @@ DB.prototype.deleteRequest = function(requestID) {
     });
 };
 
-DB.prototype.rejectMatch = function(matchID) {
+//MatchID of whom you're rejecting, requestID of your match
+DB.prototype.rejectMatch = function(matchID, requestID) {
     //get userID and requestID
+    //delete match from tblmatches
 };
 
 DB.prototype.getMatches = function(userID, onMatchFound) {
+    pg.connect(this.connString, function(err, client, done) {
+        if (err) {
+            done();
+            return console.error('Error fetching client from pool', err);
+        }
+        //Insert match query
+        client.query({
+            text: 'SELECT * FROM tblQueue,tblMatches,tblUsers \
+                   WHERE tblMatches.userid = $1 \
+                   AND tblqueue.id = tblmatches.requestid \
+                   AND tblusers.id = tblqueue.userid;',
+            values: [userID],
+            name: 'Return matched users'
+        }).on('row', onMatchFound).on('end', function(err, result) {
+            done();
+        });
+    });
+};
 
+DB.prototype.deleteExpired = function(onDelete) {
+    //onDelete(request) --> SMS saying deleting etc etc.
+        pg.connect(this.connString, function(err, client, done) {
+        if (err) {
+            done();
+            return console.error('Error fetching client from pool', err);
+        }
+        // //Insert match query
+        // client.query({
+        //     text: 'SELECT * FROM tblQueue,tblMatches,tblUsers \
+        //           WHERE tblMatches.userid = $1 \
+        //           AND tblqueue.id = tblmatches.requestid \
+        //           AND tblusers.id = tblqueue.userid;',
+        //     values: [row.userID],
+        //     name: 'Return matched users'
+        // }).on('row', onMatchFound).on('end', function(err, result) {
+        //     done();
+        // });
+    });
 };
 
 module.exports = DB;
