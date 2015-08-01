@@ -126,7 +126,7 @@ RadiusWidget.prototype.distance_changed = function() {
  */
 RadiusWidget.prototype.minDistance_changed = function() {
   if (this.get('minDistance') &&
-      this.get('distance') < this.get('minDistance')) {
+    this.get('distance') < this.get('minDistance')) {
     this.setDistance_();
   }
 };
@@ -137,7 +137,7 @@ RadiusWidget.prototype.minDistance_changed = function() {
  */
 RadiusWidget.prototype.maxDistance_changed = function() {
   if (this.get('maxDistance') &&
-      this.get('distance') > this.get('maxDistance')) {
+    this.get('distance') > this.get('maxDistance')) {
     this.setDistance_();
   }
 };
@@ -186,7 +186,8 @@ RadiusWidget.prototype.center_changed = function() {
   var position;
   if (sizerPos) {
     position = this.getSnappedPosition_(sizerPos);
-  } else {
+  }
+  else {
     var bounds = this.get('bounds');
     if (bounds) {
       var lng = bounds.getNorthEast().lng();
@@ -214,7 +215,8 @@ RadiusWidget.prototype.active_changed = function() {
     if (this.get('activeSizerIcon')) {
       icon = this.get('activeSizerIcon');
     }
-  } else {
+  }
+  else {
     strokeColor = this.get('color');
 
     icon = this.get('sizerIcon');
@@ -269,16 +271,17 @@ RadiusWidget.prototype.getSnappedPosition_ = function(pos) {
   var bounds = this.get('bounds');
   var center = this.get('center');
   var left = new google.maps.LatLng(center.lat(),
-      bounds.getSouthWest().lng());
+    bounds.getSouthWest().lng());
   var right = new google.maps.LatLng(center.lat(),
-      bounds.getNorthEast().lng());
+    bounds.getNorthEast().lng());
 
   var leftDist = this.distanceBetweenPoints_(pos, left);
   var rightDist = this.distanceBetweenPoints_(pos, right);
 
   if (leftDist < rightDist) {
     return left;
-  } else {
+  }
+  else {
     return right;
   }
 };
@@ -314,12 +317,12 @@ var geocodeTimer;
 var profileMarkers = [];
 
 function GetLocation(location) {
-    if (location) {
+  if (location) {
     userlat = location.coords.latitude;
     userlong = location.coords.longitude;
-    };
-    map.setCenter(new google.maps.LatLng(userlat, userlong));
-    distanceWidget = new DistanceWidget({
+  };
+  map.setCenter(new google.maps.LatLng(userlat, userlong));
+  distanceWidget = new DistanceWidget({
     map: map,
     distance: 7, // Starting distance in km.
     maxDistance: 2500, // Twitter has a max distance of 2500km.
@@ -328,13 +331,13 @@ function GetLocation(location) {
     sizerIcon: 'resize-off.png',
     activeSizerIcon: 'resize.png'
   });
-  
-  
+
+
   google.maps.event.addListener(distanceWidget, 'distance_changed',
-      updateDistance);
+    updateDistance);
 
   google.maps.event.addListener(distanceWidget, 'position_changed',
-      updatePosition);
+    updatePosition);
 
   map.fitBounds(distanceWidget.get('bounds'));
 
@@ -352,7 +355,7 @@ function init() {
     mapTypeId: google.maps.MapTypeId.ROADMAP
   });
 
-  
+
 
 }
 
@@ -370,20 +373,22 @@ function updatePosition() {
 function reverseGeocodePosition() {
   var pos = distanceWidget.get('position');
   var geocoder = new google.maps.Geocoder();
-  geocoder.geocode({'latLng': pos}, function(results, status) {
+  geocoder.geocode({
+    'latLng': pos
+  }, function(results, status) {
     if (status == google.maps.GeocoderStatus.OK) {
       if (results[1]) {
-        $('#of').html('of ' + results[1].formatted_address);
+        $('#of').html(' of ' + results[1].formatted_address);
         return;
       }
     }
 
-    $('#of').html('of *no location set*');
+    $('#of').html(' of *no location set*');
   });
 }
 
 function updateDistance() {
-  var distance = parseFloat(distanceWidget.get('distance'))*0.621371192;
+  var distance = parseFloat(distanceWidget.get('distance')) * 0.621371192;
   $('#dist').html(distance.toFixed(2));
 }
 
@@ -407,12 +412,12 @@ function search(e) {
     return false;
   }
 
-  var d = distanceWidget.get('distance')*0.621371192;
+  var d = distanceWidget.get('distance') * 0.621371192;
   var p = distanceWidget.get('position');
 
   var url = 'http://search.twitter.com/search.json?callback=addResults' +
     '&rrp=100&q=' + escape(q) + '&geocode=' + escape(p.lat() + ',' + p.lng() +
-    ',' + d + 'mile');
+      ',' + d + 'mile');
 
   clearMarkers();
 
@@ -434,13 +439,13 @@ function clearMarkers() {
 }
 
 $(document).ready(function() {
-    $("#logButton").click(function(e) {
-        e.preventDefault();
-        var pos = distanceWidget.get('position');
-        var distance = String(parseFloat(distanceWidget.get('distance'))*0.621371192 );
-        console.log(distance);
-        console.log(pos);
-    });
+  $("#logButton").click(function(e) {
+    e.preventDefault();
+    var pos = distanceWidget.get('position');
+    var distance = String(parseFloat(distanceWidget.get('distance')) * 0.621371192);
+    console.log(distance);
+    console.log(pos);
+  });
 });
 
 var x = document.getElementById("demo");

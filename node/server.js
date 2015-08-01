@@ -55,9 +55,14 @@ app.post('/api/request', function(req, res) {
     var requestID;
     //Go find a match
     if (req.body) {
+        var welcomeMessageTimer;
+        var matches = [];
+        var number;
+        var message;
+        var user;
         db.getUserDetails(userID, function(row) {
-            var message = "Hey, " + row.firstname + ". Thanks for signing up to Envolve. \n We'll let you know when anyone else feels like " + req.body.activityName + "."
-            sms.send(row.number, message);
+            message = "Hey, " + row.firstname + ". Thanks for signing up to Envolve.\nWe'll let you know when anyone else feels like " + req.body.activityName + "."
+            number = row.number;
         });
         db.addRequest(userID, req.body, function(reqID) {
             requestID = reqID;
@@ -66,11 +71,36 @@ app.post('/api/request', function(req, res) {
                 "requestID": requestID
             });
             db.findMatches(requestID, function(mainUser, otherUser, distanceMiles) {
+                matches.push(otherUser);
+                user = mainUser;
                 //Link user id to other request and vice versa
                 db.insertMatch(otherUser.userid, mainUser.id, distanceMiles);
                 db.insertMatch(mainUser.userid, otherUser.id, distanceMiles);
-                var mainMessage = "Hey, " + mainUser.firstname + ". " + otherUser.firstName + " also feels like " + mainUser.activityName + ". \n Visit http://envolve-app.com/viewmatches to view more details."
-                sms.send(mainUser.number, mainMessage);
+                //Text only the other user already in the DB
+                var otherMessage = "Hey, " + otherUser.firstname + ". " + mainUser.firstname + " also feels like " + mainUser.activityname + ".\nVisit http://envolve-app.com/ to view more details.";
+                sms.send(otherUser.number, otherMessage);
+            }, function() {
+                //OnComplete - check what message to send to the new user
+                if (matches.length === 0) {
+                    //Send welcome message
+                    console.log("length is 0");
+                    sms.send(number, message);
+                }
+                else if (matches.length <= 5) {
+                    //Add all names into one message
+                    var mainMessage = "Hey, " + user.firstname + ". "
+                    var names = '';
+                    matches.forEach(function(index) {
+                        names = names + index.firstname + ',';
+                    });
+                    names = names.substring(0, names.length - 1);
+                    mainMessage = mainMessage + names + " also feel like " + user.activityname + ".\nVisit http://envolve-app.com/ to view more details.";
+                    if (matches.length === 1) {
+                        mainMessage = mainMessage.replace("feel", "feels");
+                    }
+                    sms.send(user.number, mainMessage);
+                }
+                else sms.send(user.number, "Hey, " + user.firstname + ". " + matches.length + ' people have been found who also feel like ' + user.activityname + ".\nVisit http://envolve-app.com/ to view more details.");
             });
         });
     }
@@ -80,8 +110,6 @@ app.post('/api/request', function(req, res) {
 });
 
 
-
-
 /* Server instantiation */
 var server = app.listen(port, function() {
     var host = server.address().address;
@@ -89,16 +117,13 @@ var server = app.listen(port, function() {
     console.log('Listening at http://%s:%s', host, port);
 });
 
-db.getMatches(2, function(row) {
-    console.log(row);
-});
-
+//BROKEN - FIX
 //Timer for expiry of matches
-setInterval(function() {
-    db.deleteExpired(function () {
-       //On delete 
-    });
-}, 60000);
+// setInterval(function() {
+//     db.deleteExpired(function () {
+//       //On delete 
+//     });
+// }, 60000);
 //86400000 ms in a day
 
 //TODO Expiry of single user from matches

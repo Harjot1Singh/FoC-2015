@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,7 +10,7 @@
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/viewmatches.css">
-    <script src="js/viewmatches.js"></script>
+    <script src="js/viewmatches.js?version=2"></script>
     <!--<script src="FetchFBData.js"></script>-->
     <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="favicons/apple-touch-icon-60x60.png">
@@ -49,13 +48,35 @@
                         <br>
                         <span class="date">until Sat 1 Jul</span>
                     </div>
-                    <img class="ageIndicator" width="20" height="20" src="img/cross.png">
-                    <span class="ageIndicator">Declined</span>
-                    <div style="width: 90%" class="myactivitycheck" id="myactivitylocation">
-                        <span class="locationText" style="font-weight: 400">JAKE S. CHOSE 3 MILES WITHIN EALING</span>
+                    <a href="#" id="deleteActivityBtn">
+                        <img class="ageIndicator" width="20" height="20" src="img/delete.png">
+                    </a>
+                    <div style="width: 90%; height: 5px" class="myactivitycheck" id="myactivitylocation">
+                        <span class="locationText" style="font-weight: 400">WITHIN 3 MILES WITHIN EALING</span>
                     </div>
-                    <img class="ageIndicator" width: "22" height="22" src="img/geo_fence.png">
+                    <img class="ageIndicator" width: "22" height="22" src="img/geo_fence.png" style="margin-top:-9px">
                 </div> <!--- Purple Header --->
+                <div class="listing">
+                    <img class="listOwner" width="50" height="50" src="/img/examplePP/jake.png">
+                    <div class="whatAndWhen">
+                        <span class="activity">Jake S. also wants to play tennis</span>
+                        <br>
+                        <span class="date">before Sat 1 July</span>
+                    </div>
+                    <div style="margin: -70px 0 0 0;text-align: right;">
+                        <a href="">
+                            <img src="/img/checkmark.png" width="50" height="50">
+                        </a>
+                        <a href="">
+                            <img src="/img/cross.png" width="50" height="50" style="margin:50px 0 0 -30px">
+                        </a>
+                    </div> 
+                    <div style="width: 90%; margin: 0" class="checkmark">
+                        <span class="locationText locationLineOne">JAKE S. CHOSE 3 MILES WITHIN EALING</span>
+                        <span class="locationText locationLineTwo">which is 1 mile from your current location</span>
+                    </div>
+                    <img class="ageIndicator" width="22" height="22" src="img/geo_fence.png" style="margin-top:-19px">
+                </div> <!--- Pending --->
                 <div class="listing">
                     <img class="listOwner" width="50" height="50" src="/img/examplePP/jake.png">
                     <div class="whatAndWhen">
@@ -79,7 +100,25 @@
                     <div class="whatAndWhen">
                         <span class="activity">Jake S. also wants to play tennis</span>
                         <br>
-                        <span class="date">this match will not show when you refresh</span>
+                        <span class="date">before Sat 1 July</span>
+                    </div>
+                    <img class="ageIndicator" width="20" height="20" src="img/checkmark.png">
+                    <span class="ageIndicator">Accepted</span>
+                    <div class="checkmark">
+                        <p style="text-align: right; color: gray">pending Jake's approval...</p>
+                    </div>
+                    <div style="width: 90%" class="checkmark">
+                        <span class="locationText locationLineOne">JAKE S. CHOSE 3 MILES WITHIN EALING</span>
+                        <span class="locationText locationLineTwo">which is 1 mile from your current location</span>
+                    </div>
+                    <img class="ageIndicator" width: "22" height="22" src="img/geo_fence.png" style="margin-top:-19px">
+                </div> <!--- Accepted, but pending his approval --->
+                <div class="listing">
+                    <img class="listOwner" width="50" height="50" src="/img/examplePP/jake.png">
+                    <div class="whatAndWhen">
+                        <span class="activity">Jake S. also wants to play tennis</span>
+                        <br>
+                        <span class="date" style="color: red">this match will not show when you refresh</span>
                     </div>
                     <img class="ageIndicator" width="20" height="20" src="img/cross.png">
                     <span class="ageIndicator">Declined</span>
@@ -109,7 +148,7 @@
 
                         <div class="iconWrap email col-sm-1 col-sm-offset-4"></div>
                         <div class="infolabel col-sm-7">
-                            <p style="font-size: 1.3em">jacob.sieradzki@gmail.com</p>
+                            <p class="smallerInfoLabel">jacob.sieradzki@gmail.com</p>
                         </div>
 
                         <div class="iconWrap facebook col-sm-1 col-sm-offset-4"></div>

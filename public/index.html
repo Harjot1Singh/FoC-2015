@@ -5,8 +5,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--No caching dev measures-->
+    <meta http-equiv='cache-control' content='no-cache'>
+    <meta http-equiv='expires' content='0'>
+    <meta http-equiv='pragma' content='no-cache'>
     <title>Envolve</title>
-
     <script src="//maps.googleapis.com/maps/api/js?v=3.exp"></script>
     <link href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
     <link href="css/bootstrap-datepicker3.min.css" rel="stylesheet">
@@ -14,12 +17,11 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js"></script>
     <script src="js/vendor/bootstrap-datepicker.min.js"></script>
-    <script src="js/main.js"></script>
-    <script src="js/fb.js"></script>
-    <script src="js/typeahead.js/typeahead.jquery.js"></script>
-    <script src="js/inlinecomplete.js"></script>
-    <script src="js/vendor/polarblau-suggest/src/jquery.suggest.js"></script>
-    <script src="autocomplete.js"></script>
+    <script src="js/index.js?version=3"></script>
+    <script src="js/fb.js?version=8"></script>
+    <script src="js/vendor/typeahead.jquery.min.js"></script>
+    <script src="js/vendor/jquery.suggest.min.js"></script>
+    <script src="js/autocomplete.js"></script>
     <script src="js/distancewidget.js"></script>
     <!--Favicons-->
     <link rel="apple-touch-icon" sizes="57x57" href="favicons/apple-touch-icon-57x57.png">
@@ -52,7 +54,7 @@
                     <div id="formCol" class="formColFull">
                         <div>
                             <div class="logo"></div>
-                            <p class="description">Envolve is a new service to find friends to do activities with. You will need a Facebook account to login to the service. Fill in all the required fields on this page and simply log in to start finding matches!</p>
+                            <p class="description">Want to try something new? Envolve is a new service that finds people nearby who want to do the same as you. <br> Fill in your mobile number to receive SMS notifications and log in to Facebook to get Envolved!</p>
                         </div>
 
                         <form>
@@ -108,7 +110,7 @@
                     </div>
                     <div id="mapCol" class="mapColNone">
                         <button id="closeMap">Close</button>
-                        <label>Matching radius is <span id="dist"></span> miles around<span id="of"></span></label>
+                        <label>You'll be matched to anyone within <span id="dist"></span> miles <span id="of"></span></label>
                         <div id="map"></div>
                     </div>
                     <a href="#">
